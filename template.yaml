@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  UserModule:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: UserModule
+      Runtime: nodejs18.x 
+      CodeUri: ./functions/users/dist
+      Handler: index.handler 
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Method: POST
+            Path: /item
+
+  # UserModuleAPI:
+  #   Type: AWS::Serverless::Api
+  #   Properties:
+  #     StageName: development
+  #     Name: UserModuleAPI
+  #     Cors:
+  #       AllowMethods: ['GET', 'POST', 'PUT', 'DELETE']
+  #       AllowHeaders: ['Authorization']
+  #       AllowOrigin: '*'
+  #     MethodSettings:
+  #       - ResourcePath: '/users'
+  #         HttpMethod: '*'
+
+
+
+# Outputs:
+#   UserModuleAPIURL:
+#     Description: "API Gateway endpoint URL for your application"
+#     Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
