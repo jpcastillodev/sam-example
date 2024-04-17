@@ -1,15 +1,16 @@
-import express from 'express';
+import express, {Router} from 'express';
 import bodyParser from 'body-parser';
 import awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
 
 // declare a new express app
 const app = express()
+const router = Router()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(awsServerlessExpressMiddleware.eventContext())
 
-app.get('/', (_req, res) => {
+router.get('/', (_req, res) => {
 
   const users = [
     { name: 'John Doe' },
@@ -21,7 +22,7 @@ app.get('/', (_req, res) => {
   res.end()
 })
 
-app.get("/:id", (req, res) => {
+router.get("/:id", (req, res) => {
 
   const id = req.params.id
 
@@ -32,4 +33,6 @@ app.get("/:id", (req, res) => {
 })
 
 
+
+app.use('/users', router)
 export default app

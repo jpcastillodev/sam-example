@@ -15,16 +15,30 @@ Resources:
   Users:
     Type: AWS::Serverless::Function
     Properties:
+      CodeUri: lambdas/users/dist
       Runtime: nodejs20.x
-      Handler: lambdas/users/dist/index.handler 
+      Handler: index.handler 
+      Layers:
+        - !Ref CommonDependencies
       Architectures:
         - x86_64
       Events:
-        Api:
+        GetAllUsers:
           Type: Api
           Properties:
-            Path: /users
+            Path: /users/
             Method: GET
+        GetUser:
+          Type: Api
+          Properties:
+            Path: /users/{id}
+            Method: GET
+        
+
+  CommonDependencies:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: shared/common.zip
 
 Outputs:
   WebEndpoint:

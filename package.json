@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "package:common": "cd shared & npm install &",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:users": "cd lambdas/users & tsc -p ./tsconfig.json & cd ../../.."
 

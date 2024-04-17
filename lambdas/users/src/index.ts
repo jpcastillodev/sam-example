@@ -1,8 +1,8 @@
 import awsServerlessExpress from "aws-serverless-express"
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
-import app from "./app"
+import routes from "./routes"
 
-const server = awsServerlessExpress.createServer(app);
+const server = awsServerlessExpress.createServer(routes);
 
 function handler(event: APIGatewayProxyEvent, context: Context) {
   console.log(`EVENT: ${JSON.stringify(event)}`);
